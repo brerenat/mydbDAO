@@ -1,4 +1,4 @@
-package com.home.mydb.model;
+package brere.nat.mydb.model;
 
 import java.util.Date;
 import java.util.List;
@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +19,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "ProcessedFile")
-public class ProcessedFile {
+public class ProcessedFile extends AbstractDAO {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
@@ -65,14 +64,19 @@ public class ProcessedFile {
 		this.fileType = fileType;
 	}
 
-	public static ProcessedFile findWithName(final EntityManager em, final String name) throws NoResultException {
-		return em.createQuery("SELECT pf FROM ProcessedFile pf WHERE pf.fileName = :fileName", ProcessedFile.class)
-				.setParameter("fileName", name).getSingleResult();
-	}
-	
-	public static List<ProcessedFile> getAll(final EntityManager em) throws NoResultException {
-		return em.createQuery("SELECT pf FROM ProcessedFile pf ORDER BY pf.dateProcessed DESC", ProcessedFile.class)
-				.getResultList();
+	public static class Queries {
+		public static ProcessedFile findWithName(final String name) throws NoResultException {
+			return getEm()
+					.createQuery("SELECT pf FROM ProcessedFile pf WHERE pf.fileName = :fileName", ProcessedFile.class)
+					.setParameter("fileName", name).getSingleResult();
+		}
+
+		public static List<ProcessedFile> getAll() throws NoResultException {
+			return getEm()
+					.createQuery("SELECT pf FROM ProcessedFile pf ORDER BY pf.dateProcessed DESC", ProcessedFile.class)
+					.getResultList();
+		}
+
 	}
 
 }

@@ -1,15 +1,16 @@
-package com.home.mydb.utils;
+package brere.nat.mydb.utils;
 
 import java.util.Date;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.home.mydb.model.FileType;
-import com.home.mydb.model.ProcessedFile;
+import brere.nat.mydb.model.FileType;
+import brere.nat.mydb.model.ProcessedFile;
 
 public class ProcessUtils {
 
@@ -29,11 +30,12 @@ public class ProcessUtils {
 		final EntityManager em = ProcessUtils.getEm();
 
 		if (em != null) {
-			em.getTransaction().begin();
+			final EntityTransaction transaction = em.getTransaction();
+			transaction.begin();
 
 			FileType fileType;
 			try {
-				fileType = FileType.findWithName(em, fileTypeStr);
+				fileType = FileType.Queries.findWithName(fileTypeStr);
 			} catch (NoResultException e) {
 				LOG.warn("No Existing File Type :" + fileTypeStr);
 				fileType = new FileType();
@@ -43,7 +45,7 @@ public class ProcessUtils {
 
 			ProcessedFile procFile;
 			try {
-				procFile = ProcessedFile.findWithName(em, destination);
+				procFile = ProcessedFile.Queries.findWithName(destination);
 			} catch (NoResultException e) {
 				LOG.warn("No Existing File with Name :" + destination);
 				procFile = new ProcessedFile();
@@ -54,7 +56,7 @@ public class ProcessUtils {
 			procFile.setFileType(fileType);
 
 			em.persist(procFile);
-			em.getTransaction().commit();
+			transaction.commit();
 		}
 	}
 }

@@ -1,10 +1,9 @@
-package com.home.mydb.model;
+package brere.nat.mydb.model;
 
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,8 +12,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "SubscriptionDTO")
-public class SubscriptionDTO {
-	
+public class SubscriptionDTO extends AbstractDAO {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private int id = 0;
@@ -56,9 +55,12 @@ public class SubscriptionDTO {
 	public void setAuth(String auth) {
 		this.auth = auth;
 	}
-	
-	public static List<SubscriptionDTO> getSubscriptions(EntityManager em) throws NoResultException {
-		return em.createQuery("SELECT s FROM SubscriptionDTO s", SubscriptionDTO.class).getResultList();
+
+	public static class Queries {
+		public static List<SubscriptionDTO> getSubscriptions() throws NoResultException {
+			return getEm().createQuery("SELECT s FROM SubscriptionDTO s", SubscriptionDTO.class).getResultList();
+		}
+
 	}
 
 }
