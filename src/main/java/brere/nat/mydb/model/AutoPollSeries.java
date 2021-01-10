@@ -39,7 +39,7 @@ public class AutoPollSeries extends AbstractDAO {
 	private Set<AutoPollDownload> activeDownloads = new HashSet<>();
 	
 	@Transient
-	private Map<Integer, Integer> seasonMap = new HashMap<>();
+	private Map<Integer, Set<Integer>> seasonMap = new HashMap<>();
 
 	public int getId() {
 		return id;
@@ -105,15 +105,18 @@ public class AutoPollSeries extends AbstractDAO {
 		this.activeDownloads = activeDownloads;
 	}
 	
-	public Map<Integer, Integer> getSeasonMap() {
+
+	
+	public Map<Integer, Set<Integer>> getSeasonMap() {
 		return seasonMap;
 	}
 
-	public void setSeasonMap(Map<Integer, Integer> seasonMap) {
+	public void setSeasonMap(Map<Integer, Set<Integer>> seasonMap) {
 		this.seasonMap = seasonMap;
 	}
 
-	
+
+
 	public static class Queries {
 		public static List<AutoPollSeries> getAll() throws NoResultException {
 			return getEm().createQuery("SELECT aps FROM AutoPollSeries AS aps INNER JOIN aps.activeDownloads AS apd", AutoPollSeries.class).getResultList();
