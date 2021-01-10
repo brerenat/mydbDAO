@@ -1,6 +1,6 @@
 package brere.nat.mydb.model;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Date;
 import java.util.List;
@@ -15,8 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import brere.nat.mydb.AbstractTest;
-import brere.nat.mydb.model.AutoPollDownload;
-import brere.nat.mydb.model.AutoPollSeries;
 
 @TestMethodOrder(OrderAnnotation.class)
 class AutoPollDownloadTest extends AbstractTest {
