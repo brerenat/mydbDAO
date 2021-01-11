@@ -17,7 +17,8 @@ class AutoPollSeriesTest extends AbstractTest {
 
 	private static AutoPollSeries autoPollSeries;
 	private static AutoPollDownload autoPollDownload;
-
+	private static AutoPollSeries autoPollSeries2;
+	
 	private static final Logger LOG = LoggerFactory.getLogger(AutoPollSeriesTest.class);
 
 	@BeforeAll
@@ -40,8 +41,19 @@ class AutoPollSeriesTest extends AbstractTest {
 		
 		autoPollSeries.getActiveDownloads().add(autoPollDownload);
 		
-		insert(autoPollSeries, autoPollDownload);
+		
+		autoPollSeries2 = new AutoPollSeries();
+		
+		autoPollSeries2.setActive(false);
+		autoPollSeries2.setFolderName("Test2" + new Date().getTime());
+		autoPollSeries2.setImdbID("Test ID2" + new Date().getTime());
+		autoPollSeries2.setPosterUrl("Nothing to see here");
+		autoPollSeries2.setTitle("Test Title2");
+		autoPollSeries2.setYear("Test Year2");
+		
+		insert(autoPollSeries, autoPollDownload, autoPollSeries2);
 		LOG.info("Finished Setting up ");
+		
 		
 	}
 
@@ -49,6 +61,7 @@ class AutoPollSeriesTest extends AbstractTest {
 	public static void tearDown() throws Exception {
 		remove(autoPollDownload);
 		remove(autoPollSeries);
+		remove(autoPollSeries2);
 	}
 
 	@Test

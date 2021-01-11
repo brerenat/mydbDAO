@@ -119,11 +119,11 @@ public class AutoPollSeries extends AbstractDAO {
 
 	public static class Queries {
 		public static List<AutoPollSeries> getAll() throws NoResultException {
-			return getEm().createQuery("SELECT aps FROM AutoPollSeries AS aps INNER JOIN aps.activeDownloads AS apd", AutoPollSeries.class).getResultList();
+			return getEm().createQuery("SELECT aps FROM AutoPollSeries AS aps LEFT OUTER JOIN aps.activeDownloads AS apd", AutoPollSeries.class).getResultList();
 		}
 		
 		public static List<AutoPollSeries> getAllByActive(final boolean active) throws NoResultException {
-			return getEm().createQuery("SELECT aps FROM AutoPollSeries AS aps INNER JOIN aps.activeDownloads AS apd WHERE aps.active = :active", AutoPollSeries.class)
+			return getEm().createQuery("SELECT aps FROM AutoPollSeries AS aps LEFT OUTER JOIN aps.activeDownloads AS apd WHERE aps.active = :active", AutoPollSeries.class)
 					.setParameter("active", active).getResultList();
 		}
 	}
