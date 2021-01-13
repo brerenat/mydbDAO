@@ -15,9 +15,9 @@ public abstract class AbstractTest {
 	
 	@BeforeAll
 	public static void beforeClass() {
-		if (ProcessUtils.getEm() == null) {
+		if (ProcessUtils.getEmf() == null) {
 			EntityManagerFactory factory = Persistence.createEntityManagerFactory("torrentmover");
-			ProcessUtils.setEm(factory.createEntityManager());
+			ProcessUtils.setEmf(factory);
 		}
 		em = ProcessUtils.getEm();
 	}

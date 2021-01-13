@@ -39,9 +39,6 @@ class AutoPollSeriesTest extends AbstractTest {
 		autoPollDownload.setEpisode(1);
 		autoPollDownload.setSeason(1);
 		
-		autoPollSeries.getActiveDownloads().add(autoPollDownload);
-		
-		
 		autoPollSeries2 = new AutoPollSeries();
 		
 		autoPollSeries2.setActive(false);

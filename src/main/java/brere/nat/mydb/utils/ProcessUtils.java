@@ -3,6 +3,7 @@ package brere.nat.mydb.utils;
 import java.util.Date;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 
@@ -14,18 +15,22 @@ import brere.nat.mydb.model.ProcessedFile;
 
 public class ProcessUtils {
 
-	private static EntityManager em;
+	private static EntityManagerFactory emf;
 	
 	private static final Logger LOG = LoggerFactory.getLogger(ProcessUtils.class);
 	
 	public static EntityManager getEm() {
-		return em;
+		return emf.createEntityManager();
 	}
 
-	public static void setEm(EntityManager em) {
-		ProcessUtils.em = em;
+	public static void setEmf(EntityManagerFactory emf) {
+		ProcessUtils.emf = emf;
 	}
-
+	
+	public static EntityManagerFactory getEmf() {
+		return emf;
+	}
+	
 	public static void updateDatebase(final String destination, final String fileTypeStr) {
 		final EntityManager em = ProcessUtils.getEm();
 
