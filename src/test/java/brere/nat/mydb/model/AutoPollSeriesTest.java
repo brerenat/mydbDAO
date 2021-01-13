@@ -32,6 +32,7 @@ class AutoPollSeriesTest extends AbstractTest {
 		autoPollSeries.setPosterUrl("Nothing to see here");
 		autoPollSeries.setTitle("Test Title");
 		autoPollSeries.setYear("Test Year");
+		autoPollSeries.setStartPoll(false);
 
 		autoPollDownload = new AutoPollDownload(autoPollSeries);
 		
@@ -47,6 +48,7 @@ class AutoPollSeriesTest extends AbstractTest {
 		autoPollSeries2.setPosterUrl("Nothing to see here");
 		autoPollSeries2.setTitle("Test Title2");
 		autoPollSeries2.setYear("Test Year2");
+		autoPollSeries2.setStartPoll(false);
 		
 		insert(autoPollSeries, autoPollDownload, autoPollSeries2);
 		LOG.info("Finished Setting up ");
@@ -65,7 +67,7 @@ class AutoPollSeriesTest extends AbstractTest {
 	void getAll() {
 		LOG.info("Starting Test");
 		try {
-			List<AutoPollSeries> all = AutoPollSeries.Queries.getAll();
+			List<AutoPollSeries> all = AutoPollSeries.Queries.getAll(em);
 			LOG.info("All Size :" + all.size());
 			for (AutoPollSeries autoPoll : all) {
 				for (AutoPollDownload downloads : autoPoll.getActiveDownloads()) {
@@ -82,7 +84,7 @@ class AutoPollSeriesTest extends AbstractTest {
 	void getAllByActive() {
 		LOG.info("Starting Test");
 		try {
-			List<AutoPollSeries> all = AutoPollSeries.Queries.getAllByActive(false);
+			List<AutoPollSeries> all = AutoPollSeries.Queries.getAllByActive(false, em);
 			LOG.info("All Size :" + all.size());
 			for (AutoPollSeries autoPoll : all) {
 				for (AutoPollDownload downloads : autoPoll.getActiveDownloads()) {
