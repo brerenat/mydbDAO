@@ -5,11 +5,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NoResultException;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 
 @Entity
 @Table(name = "ReferenceData")
+@NamedQueries({
+	@NamedQuery(name = "ReferenceData_findWithName", query="SELECT rd FROM ReferenceData rd WHERE rd.name = :name"),
+})
 public class ReferenceData extends AbstractDAO {
 
 	@Id
@@ -42,13 +47,6 @@ public class ReferenceData extends AbstractDAO {
 
 	public void setValue(String value) {
 		this.value = value;
-	}
-
-	public static class Queries {
-		public static ReferenceData findWithName(String name) throws NoResultException {
-			return getEm().createQuery("SELECT rd FROM ReferenceData rd WHERE rd.name = :name", ReferenceData.class)
-					.setParameter("name", name).getSingleResult();
-		}
 	}
 
 }

@@ -2,23 +2,28 @@ package brere.nat.mydb.model;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NoResultException;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 @Entity
 @Table(name = "AutoPollSeries")
+@NamedQueries({
+	@NamedQuery(name = "AutoPollSeries_getAll", query="SELECT aps FROM AutoPollSeries AS aps LEFT OUTER JOIN aps.activeDownloads AS apd"),
+	@NamedQuery(name = "AutoPollSeries_getAllByActive", query="SELECT aps FROM AutoPollSeries AS aps LEFT OUTER JOIN aps.activeDownloads AS apd WHERE aps.active = :active"),
+	@NamedQuery(name = "AutoPollSeries_getAllByStartPoll", query="SELECT aps FROM AutoPollSeries AS aps LEFT OUTER JOIN aps.activeDownloads AS apd WHERE aps.startPoll = :startPoll"),
+})
 public class AutoPollSeries extends AbstractDAO {
 
 	@Id
@@ -126,41 +131,4 @@ public class AutoPollSeries extends AbstractDAO {
 		this.seasonMap = seasonMap;
 	}
 
-
-
-	public static class Queries {
-		public static List<AutoPollSeries> getAll(final EntityManager em) throws NoResultException {
-			final List<AutoPollSeries> item;
-			if (em != null) {
-				item = em.createQuery("SELECT aps FROM AutoPollSeries AS aps LEFT OUTER JOIN aps.activeDownloads AS apd", AutoPollSeries.class).getResultList();
-			} else {
-				item = getEm().createQuery("SELECT aps FROM AutoPollSeries AS aps LEFT OUTER JOIN aps.activeDownloads AS apd", AutoPollSeries.class).getResultList();
-			}
-			return item;
-		}
-		
-		public static List<AutoPollSeries> getAllByActive(final boolean active, final EntityManager em) throws NoResultException {
-			final List<AutoPollSeries> item;
-			if (em != null) {
-				item = em.createQuery("SELECT aps FROM AutoPollSeries AS aps LEFT OUTER JOIN aps.activeDownloads AS apd WHERE aps.active = :active", AutoPollSeries.class)
-						.setParameter("active", active).getResultList();
-			} else {
-				item = getEm().createQuery("SELECT aps FROM AutoPollSeries AS aps LEFT OUTER JOIN aps.activeDownloads AS apd WHERE aps.active = :active", AutoPollSeries.class)
-						.setParameter("active", active).getResultList();
-			}
-			return item;
-		}
-		
-		public static AutoPollSeries getAllByStartPoll(final boolean startPoll, final EntityManager em) throws NoResultException {
-			final AutoPollSeries item;
-			if (em != null) {
-				item = em.createQuery("SELECT aps FROM AutoPollSeries AS aps LEFT OUTER JOIN aps.activeDownloads AS apd WHERE aps.startPoll = :startPoll", AutoPollSeries.class)
-				.setParameter("startPoll", startPoll).getSingleResult();
-			} else {
-				item = getEm().createQuery("SELECT aps FROM AutoPollSeries AS aps LEFT OUTER JOIN aps.activeDownloads AS apd WHERE aps.startPoll = :startPoll", AutoPollSeries.class)
-				.setParameter("startPoll", startPoll).getSingleResult();
-			}
-			return item;
-		}
-	}
 }

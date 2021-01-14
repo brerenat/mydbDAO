@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.TypedQuery;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -67,7 +69,9 @@ class AutoPollSeriesTest extends AbstractTest {
 	void getAll() {
 		LOG.info("Starting Test");
 		try {
-			List<AutoPollSeries> all = AutoPollSeries.Queries.getAll(em);
+			final TypedQuery<AutoPollSeries> getAll = em.createNamedQuery("AutoPollSeries_getAll", AutoPollSeries.class);
+			
+			List<AutoPollSeries> all = getAll.getResultList();
 			LOG.info("All Size :" + all.size());
 			for (AutoPollSeries autoPoll : all) {
 				for (AutoPollDownload downloads : autoPoll.getActiveDownloads()) {
@@ -84,7 +88,10 @@ class AutoPollSeriesTest extends AbstractTest {
 	void getAllByActive() {
 		LOG.info("Starting Test");
 		try {
-			List<AutoPollSeries> all = AutoPollSeries.Queries.getAllByActive(false, em);
+			final TypedQuery<AutoPollSeries> getAllActive = em.createNamedQuery("AutoPollSeries_getAllByActive", AutoPollSeries.class);
+			getAllActive.setParameter("active", false);
+			
+			List<AutoPollSeries> all = getAllActive.getResultList();
 			LOG.info("All Size :" + all.size());
 			for (AutoPollSeries autoPoll : all) {
 				for (AutoPollDownload downloads : autoPoll.getActiveDownloads()) {

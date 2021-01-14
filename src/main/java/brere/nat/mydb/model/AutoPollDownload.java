@@ -17,7 +17,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "AutoPollDownload")
-
 public class AutoPollDownload extends AbstractDAO implements Serializable {
 
 	@Id

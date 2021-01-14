@@ -5,11 +5,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NoResultException;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 
 @Entity
 @Table(name = "FileType")
+@NamedQueries({
+	@NamedQuery(name = "FileType_findWithName", query="SELECT ft FROM FileType ft WHERE ft.type = :typeName"),
+})
 public class FileType extends AbstractDAO {
 
 	@Id
@@ -32,13 +37,6 @@ public class FileType extends AbstractDAO {
 
 	public void setType(String type) {
 		this.type = type;
-	}
-
-	public static class Queries {
-		public static FileType findWithName(String name) throws NoResultException {
-			return getEm().createQuery("SELECT ft FROM FileType ft WHERE ft.type = :typeName", FileType.class)
-					.setParameter("typeName", name).getSingleResult();
-		}
 	}
 
 }
