@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,9 +21,15 @@ import org.hibernate.annotations.NamedQuery;
 @Entity
 @Table(name = "AutoPollSeries")
 @NamedQueries({
-	@NamedQuery(name = "AutoPollSeries_getAll", query="SELECT aps FROM AutoPollSeries AS aps LEFT OUTER JOIN aps.activeDownloads AS apd"),
-	@NamedQuery(name = "AutoPollSeries_getAllByActive", query="SELECT aps FROM AutoPollSeries AS aps LEFT OUTER JOIN aps.activeDownloads AS apd WHERE aps.active = :active"),
-	@NamedQuery(name = "AutoPollSeries_getAllByStartPoll", query="SELECT aps FROM AutoPollSeries AS aps LEFT OUTER JOIN aps.activeDownloads AS apd WHERE aps.startPoll = :startPoll"),
+	@NamedQuery(name = "AutoPollSeries_getAll", query="SELECT aps FROM AutoPollSeries AS aps"),
+	@NamedQuery(name = "AutoPollSeries_getAllByActive", query="SELECT aps FROM AutoPollSeries AS aps WHERE aps.active = :active"),
+	@NamedQuery(name = "AutoPollSeries_getAllByStartPoll", query="SELECT aps FROM AutoPollSeries AS aps WHERE aps.startPoll = :startPoll"),
+	@NamedQuery(name = "AutoPollSeries_countAll", query="SELECT COUNT(aps) FROM AutoPollSeries AS aps"),
+	@NamedQuery(name = "AutoPollSeries_getByID", query="SELECT aps FROM AutoPollSeries AS aps WHERE aps.id = :id"),
+	@NamedQuery(name = "AutoPollSeries_getAllSearch", query="SELECT aps FROM AutoPollSeries AS aps WHERE aps.title like :title"),
+	@NamedQuery(name = "AutoPollSeries_countSearch", query="SELECT COUNT(aps) FROM AutoPollSeries AS aps WHERE aps.title like :title"),
+	@NamedQuery(name = "AutoPollSeries_getAllSorted", query="SELECT aps FROM AutoPollSeries AS aps ORDER BY :sorting"),
+	@NamedQuery(name = "AutoPollSeries_getAllSearchSorted", query="SELECT aps FROM AutoPollSeries AS aps WHERE aps.title like :title ORDER BY :sorting"),
 })
 public class AutoPollSeries extends AbstractDAO {
 
@@ -43,7 +50,7 @@ public class AutoPollSeries extends AbstractDAO {
 	private String folderName;
 	@Column(unique = false, nullable = false)
 	private boolean startPoll;
-	@OneToMany(mappedBy="autoPollSeries")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="autoPollSeries")
 	private Set<AutoPollDownload> activeDownloads = new HashSet<>();
 	
 	@Transient

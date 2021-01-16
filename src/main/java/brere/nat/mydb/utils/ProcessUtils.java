@@ -67,6 +67,7 @@ public class ProcessUtils {
 
 			em.persist(procFile);
 			transaction.commit();
+			em.close();
 		}
 	}
 }
