@@ -66,10 +66,6 @@ public class AutoPollDownload extends AbstractDAO implements Serializable {
 		this.episode = episode;
 	}
 
-	public AutoPollSeries getAutoPollSeries() {
-		return autoPollSeries;
-	}
-
 	public void setAutoPollSeries(AutoPollSeries autoPollSeries) {
 		this.autoPollSeries = autoPollSeries;
 	}

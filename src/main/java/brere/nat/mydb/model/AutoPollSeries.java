@@ -20,17 +20,15 @@ import org.hibernate.annotations.NamedQuery;
 
 @Entity
 @Table(name = "AutoPollSeries")
-@NamedQueries({
-	@NamedQuery(name = "AutoPollSeries_getAll", query="SELECT aps FROM AutoPollSeries AS aps"),
-	@NamedQuery(name = "AutoPollSeries_getAllByActive", query="SELECT aps FROM AutoPollSeries AS aps WHERE aps.active = :active"),
-	@NamedQuery(name = "AutoPollSeries_getAllByStartPoll", query="SELECT aps FROM AutoPollSeries AS aps WHERE aps.startPoll = :startPoll"),
-	@NamedQuery(name = "AutoPollSeries_countAll", query="SELECT COUNT(aps) FROM AutoPollSeries AS aps"),
-	@NamedQuery(name = "AutoPollSeries_getByID", query="SELECT aps FROM AutoPollSeries AS aps WHERE aps.id = :id"),
-	@NamedQuery(name = "AutoPollSeries_getAllSearch", query="SELECT aps FROM AutoPollSeries AS aps WHERE aps.title like :title"),
-	@NamedQuery(name = "AutoPollSeries_countSearch", query="SELECT COUNT(aps) FROM AutoPollSeries AS aps WHERE aps.title like :title"),
-	@NamedQuery(name = "AutoPollSeries_getAllSorted", query="SELECT aps FROM AutoPollSeries AS aps ORDER BY :sorting"),
-	@NamedQuery(name = "AutoPollSeries_getAllSearchSorted", query="SELECT aps FROM AutoPollSeries AS aps WHERE aps.title like :title ORDER BY :sorting"),
-})
+@NamedQueries({ @NamedQuery(name = "AutoPollSeries_getAll", query = "SELECT aps FROM AutoPollSeries AS aps"),
+		@NamedQuery(name = "AutoPollSeries_getAllByActive", query = "SELECT aps FROM AutoPollSeries AS aps WHERE aps.active = :active"),
+		@NamedQuery(name = "AutoPollSeries_getAllByStartPoll", query = "SELECT aps FROM AutoPollSeries AS aps WHERE aps.startPoll = :startPoll"),
+		@NamedQuery(name = "AutoPollSeries_countAll", query = "SELECT COUNT(aps) FROM AutoPollSeries AS aps"),
+		@NamedQuery(name = "AutoPollSeries_getByID", query = "SELECT aps FROM AutoPollSeries AS aps WHERE aps.id = :id"),
+		@NamedQuery(name = "AutoPollSeries_getAllSearch", query = "SELECT aps FROM AutoPollSeries AS aps WHERE aps.title like :title"),
+		@NamedQuery(name = "AutoPollSeries_countSearch", query = "SELECT COUNT(aps) FROM AutoPollSeries AS aps WHERE aps.title like :title"),
+		@NamedQuery(name = "AutoPollSeries_getAllSorted", query = "SELECT aps FROM AutoPollSeries AS aps ORDER BY :sorting"),
+		@NamedQuery(name = "AutoPollSeries_getAllSearchSorted", query = "SELECT aps FROM AutoPollSeries AS aps WHERE aps.title like :title ORDER BY :sorting"), })
 public class AutoPollSeries extends AbstractDAO {
 
 	@Id
@@ -50,9 +48,9 @@ public class AutoPollSeries extends AbstractDAO {
 	private String folderName;
 	@Column(unique = false, nullable = false)
 	private boolean startPoll;
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="autoPollSeries")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "autoPollSeries")
 	private Set<AutoPollDownload> activeDownloads = new HashSet<>();
-	
+
 	@Transient
 	private Map<Integer, Set<Integer>> seasonMap = new HashMap<>();
 
@@ -127,9 +125,7 @@ public class AutoPollSeries extends AbstractDAO {
 	public void setActiveDownloads(Set<AutoPollDownload> activeDownloads) {
 		this.activeDownloads = activeDownloads;
 	}
-	
 
-	
 	public Map<Integer, Set<Integer>> getSeasonMap() {
 		return seasonMap;
 	}
