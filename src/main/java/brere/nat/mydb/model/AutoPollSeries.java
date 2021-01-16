@@ -48,6 +48,8 @@ public class AutoPollSeries extends AbstractDAO {
 	private String folderName;
 	@Column(unique = false, nullable = false)
 	private boolean startPoll;
+	@Column(unique = false, nullable = false)
+	private int seasonFrom = 0;
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "autoPollSeries")
 	private Set<AutoPollDownload> activeDownloads = new HashSet<>();
 
@@ -116,6 +118,14 @@ public class AutoPollSeries extends AbstractDAO {
 
 	public void setStartPoll(boolean startPoll) {
 		this.startPoll = startPoll;
+	}
+
+	public int getSeasonFrom() {
+		return seasonFrom;
+	}
+
+	public void setSeasonFrom(int seasonFrom) {
+		this.seasonFrom = seasonFrom;
 	}
 
 	public Set<AutoPollDownload> getActiveDownloads() {
