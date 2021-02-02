@@ -16,7 +16,7 @@ public class SubscriptionDTO extends AbstractDAO {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
-	private int id = 0;
+	private Integer id = 0;
 	@Column(unique = false, nullable = false)
 	private String endpoint;
 	@Column(unique = false, nullable = false)
@@ -24,11 +24,11 @@ public class SubscriptionDTO extends AbstractDAO {
 	@Column(unique = false, nullable = false)
 	private String auth;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

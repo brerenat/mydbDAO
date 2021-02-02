@@ -41,7 +41,7 @@ public class ProcessUtils {
 
 			FileType fileType;
 			try {
-				final TypedQuery<FileType> getFileTypeByName = em.createNamedQuery("FileType_findWithName", FileType.class);
+				final TypedQuery<FileType> getFileTypeByName = em.createNamedQuery("FileType.findWithName", FileType.class);
 				getFileTypeByName.setParameter("typeName", fileTypeStr);
 				fileType = getFileTypeByName.getSingleResult();
 			} catch (NoResultException e) {
@@ -53,7 +53,7 @@ public class ProcessUtils {
 
 			ProcessedFile procFile;
 			try {
-				final TypedQuery<ProcessedFile> getProcessedByFileName = em.createNamedQuery("ProcessedFile_findWithName", ProcessedFile.class);
+				final TypedQuery<ProcessedFile> getProcessedByFileName = em.createNamedQuery("ProcessedFile.findWithName", ProcessedFile.class);
 				getProcessedByFileName.setParameter("fileName", destination);
 				procFile = getProcessedByFileName.getSingleResult();
 			} catch (NoResultException e) {

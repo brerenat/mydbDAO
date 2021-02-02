@@ -13,21 +13,21 @@ import org.hibernate.annotations.NamedQuery;
 @Entity
 @Table(name = "FileType")
 @NamedQueries({
-	@NamedQuery(name = "FileType_findWithName", query="SELECT ft FROM FileType ft WHERE ft.type = :typeName"),
+	@NamedQuery(name = "FileType.findWithName", query="SELECT ft FROM FileType ft WHERE ft.type = :typeName"),
 })
 public class FileType extends AbstractDAO {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
-	private int id;
+	private Integer id;
 	@Column(unique = true, nullable = false)
 	private String type;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

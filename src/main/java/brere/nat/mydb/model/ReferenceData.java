@@ -13,23 +13,23 @@ import org.hibernate.annotations.NamedQuery;
 @Entity
 @Table(name = "ReferenceData")
 @NamedQueries({
-	@NamedQuery(name = "ReferenceData_findWithName", query="SELECT rd FROM ReferenceData rd WHERE rd.name = :name"),
+	@NamedQuery(name = "ReferenceData.findWithName", query="SELECT rd FROM ReferenceData rd WHERE rd.name = :name"),
 })
 public class ReferenceData extends AbstractDAO {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
-	private int id;
+	private Integer id;
 	@Column(unique = true, nullable = false)
 	private String name;
 	@Column(unique = false, nullable = false)
 	private String value;
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

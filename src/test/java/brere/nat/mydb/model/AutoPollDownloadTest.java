@@ -71,7 +71,7 @@ class AutoPollDownloadTest extends AbstractTest {
 	void getAll() {
 		LOG.info("Starting Test");
 		try {
-			final TypedQuery<AutoPollSeries> getAll = em.createNamedQuery("AutoPollSeries_getAll", AutoPollSeries.class);
+			final TypedQuery<AutoPollSeries> getAll = em.createNamedQuery("AutoPollSeries.getAll", AutoPollSeries.class);
 			
 			List<AutoPollSeries> all = getAll.getResultList();
 			LOG.info("All Size :" + all.size());

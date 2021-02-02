@@ -21,7 +21,7 @@ public class AutoPollDownload extends AbstractDAO implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
-	private int id;
+	private Integer id;
 	@Column(unique = false, nullable = false)
 	private int season;
 	@Column(unique = false, nullable = false)
@@ -42,11 +42,11 @@ public class AutoPollDownload extends AbstractDAO implements Serializable {
 		this.autoPollSeries = autoPollSeries;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
